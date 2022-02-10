@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1">
+<title>Biblioteca</title>
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+	integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+	crossorigin="anonymous">
+</head>
+<body>
+	<div class="container text-center">
+
+		<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+			<a class="navbar-brand" href="#">Biblioteca</a>
+
+			<div class="collapse navbar-collapse" id="navbarSupportedContent">
+
+				<ul class="navbar-nav mr-auto">
+					<li class="nav-item"><a class="nav-link" href="/agregar">Agregar
+							Libro</a>
+				</ul>
+
+				<form class="form-inline" th:action="@{/}">
+					<div class="form-group mb-2">
+						<label>Buscar:</label>
+					</div>
+					<div class="form-group mx-sm-3 mb-2">
+						<input type="text" name="clave" class="form-control"
+						id="clave" th:value="${clave}" placeholder="Titulo,Autor,Editorial" required="required">
+					</div>
+					<input class="btn btn-primary mb-2" value="Buscar" type="submit">
+					&nsbp;&nsbp;
+					<input class="btn btn-secondary mb-2" value="Limpiar" type="button" onclick="limpiar()">
+					
+					
+				</form>
+			</div>
+
+		</nav>
+		<br>
+		<table class="table">
+			<thead class="thead-dark">
+				<tr>
+					<th scope="col">IdLibro</th>
+					<th scope="col">Titulo</th>
+					<th scope="col">Autor</th>
+					<th scope="col">Editorial</th>
+					<th scope="col">Volumen</th>
+					<th scope="col">Sala</th>
+					<th scope="col">Estante</th>
+					<th scope="col">Acciones</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="libros:${libros}">
+					<td th:text="${libros.idLibro}"></td>
+					<td th:text="${libros.Titulo}"></td>
+					<td th:text="${libros.Autor}"></td>
+					<td th:text="${libros.Editorial}"></td>
+					<td th:text="${libros.Volumen}"></td>
+					<td th:text="${libros.Estante.Sala.Nombre}"></td>
+					<td th:text="${libros.Estante.Letra}"></td>
+					<td><a class="btn btn-primary"
+						th:href="@{'/editar/'+ ${libros.idLibro}}">Editar</a> &nbsp; <a
+						class="btn btn-danger"
+						th:href="@{'/eliminar/'+ ${libros.idLibro}}">Eliminar</a></td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+	
+	<script type="text/javascript">
+		function limpiar(){
+			window.location='/';
+		}
+	</script>
+	
+</body>
+</html>
